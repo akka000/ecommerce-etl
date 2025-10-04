@@ -1,3 +1,4 @@
+airflow/
 __pycache__
 *.pyc
 *.pyd
@@ -6,3 +7,4 @@ logs/*
 data/silver/*
 Data/gold/*
 .env
+tmp/
