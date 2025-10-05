@@ -1,0 +1,8 @@
+{ 
+"local": { 
+"raw_parquet": "data/raw/online_retail_II.parquet", 
+"default_raw": "online_retail_II.xlsx", 
+    "silver_path": "data/silver/", 
+    "gold_path": "data/gold/" 
+  } 
+}
