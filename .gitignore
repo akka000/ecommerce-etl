@@ -5,6 +5,6 @@ __pycache__
 .venv/
 logs/*
 data/silver/*
-Data/gold/*
+data/gold/*
 .env
 tmp/
