@@ -18,6 +18,7 @@ df = (
       .withColumnRenamed("Customer ID", "customer_id")
       .withColumnRenamed("Price", "price")
       .withColumnRenamed("Quantity", "quantity")
+      .withColumnRenamed("Country", "country")
 )
 df = df.filter((col("quantity").isNotNull()) & (col("quantity") > 0))
 df = df.withColumn("line_total", col("quantity") * col("price"))
