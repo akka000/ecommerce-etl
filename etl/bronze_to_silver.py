@@ -20,11 +20,15 @@ df = (
       .withColumnRenamed("Quantity", "quantity")
       .withColumnRenamed("Country", "country")
 )
-df = df.filter((col("quantity").isNotNull()) & (col("quantity") > 0))
+df = df.filter(
+    (col("quantity").isNotNull()) & (col("quantity") > 0) &
+    (col("price").isNotNull()) & (col("price") > 0)
+)
 df = df.withColumn("line_total", col("quantity") * col("price"))
 df = df.withColumn("invoice_ts", to_timestamp(col("invoice_date")))
 
 logger.info("Writing silver parquet to %s", silver_out)
 df.write.mode("overwrite").parquet(silver_out)
+
 spark.stop()
 logger.info("bronze_to_silver finished")
