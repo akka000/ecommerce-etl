@@ -1,12 +1,13 @@
 import os
-from etl.spark_utils import build_spark
 from etl.logging_utils import get_logger
 from etl.config_utils import load_config
 from pyspark.sql.functions import to_date, col, sum as sum_, avg, countDistinct
+from pyspark.sql import SparkSession
 
 logger = get_logger(log_file="logs/silver_to_gold.log")
 cfg = load_config()
-spark = build_spark("silver_to_gold")
+spark = SparkSession.builder.appName("silver_to_gold").\
+    config("spark.sql.shuffle.partitions", "8").getOrCreate()
 
 silver_in = os.path.abspath(os.path.join(cfg["local"]["silver_path"], "sales_silver.parquet"))
 gold_out = os.path.abspath(os.path.join(cfg["local"]["gold_path"], "sales_gold.parquet"))

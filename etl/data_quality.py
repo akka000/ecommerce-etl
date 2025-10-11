@@ -6,7 +6,10 @@ from pyspark.sql.functions import col
 
 logger = get_logger() 
 cfg = load_config() 
-spark = SparkSession.builder.appName("data_quality").getOrCreate() 
+spark = SparkSession.builder.appName("data_quality").\
+    config("spark.sql.shuffle.partitions", "8").getOrCreate()
+
+
 gold_in = os.path.abspath(os.path.join(cfg["local"]["gold_path"], "sales_gold.parquet")) 
 df = spark.read.parquet(gold_in)
 

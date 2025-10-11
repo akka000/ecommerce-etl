@@ -1,12 +1,13 @@
 import os
-from etl.spark_utils import build_spark
 from etl.logging_utils import get_logger
 from etl.config_utils import load_config
 from pyspark.sql.functions import col, to_timestamp
+from pyspark.sql import SparkSession
 
 logger = get_logger(log_file="logs/bronze_to_silver.log")
 cfg = load_config()
-spark = build_spark("bronze_to_silver")
+spark = SparkSession.builder.appName("bronze_to_silver").\
+    config("spark.sql.shuffle.partitions", "8").getOrCreate()
 
 raw_path = os.path.abspath(cfg["local"]["raw_parquet"])
 silver_out = os.path.abspath(os.path.join(cfg["local"]["silver_path"], "sales_silver.parquet"))
